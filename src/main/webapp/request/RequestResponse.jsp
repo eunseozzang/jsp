@@ -8,7 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>GET</h1>
+	<% request.setCharacterEncoding("utf-8"); %>
+	<% String type = request.getParameter("type"); %>
+	<h1><%=type %></h1>
+<%-- 	<h1><%=request.getMethod() %></h1> --%>
 	userId 파라미터는 brown, sally 두개를 보내지만 getParameter를 호출하면 첫번째 파라미터 값을 반환한다.
 	request.getParameter("userId") : <%=request.getParameter("userId") %> <br><br>
 	String[] 을 반환

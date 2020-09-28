@@ -26,7 +26,6 @@
 </style>
 </head>
 <body>
-	<% request.setCharacterEncoding("utf-8"); %>
 <%--
 		파라미터 : client 서버로 요청을 보낼 때 추가적으로 보낸 값
 		 	 ex) 로그인 요청시 : 사용자 id, 비밀번호
@@ -48,7 +47,7 @@
  --%> 
 <%--action : 요청을 보낼 경로
 	method : 요청방식 (form에서는 GET, POST 두가지만 가능하며 DEFAULT는 GET --%>
-<form action="/jsp/request/getRequestResponse.jsp">
+<form action="/jsp/request/RequestResponse.jsp">
 	<label>user id : </label><input type="text" name="userId" value="어피치"><br>
 	<label>user id : </label><input type="text" name="userId" value="튜브"><br>
 	<label>password: </label><input type="password" name="userPw" value="pass1234"><br><br>
