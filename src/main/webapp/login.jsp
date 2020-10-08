@@ -21,15 +21,16 @@
     <!-- Custom styles for this template -->
     <link href="<%=request.getContextPath() %>/css/signin.css" rel="stylesheet">
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath() %>/js/js.cookie-2.2.1.min.js"></script>
+    
     <script type="text/javascript">
     
-    	function getCookieValue(cookieName) {
-
-    		
+    function getCookieValue(cookieName) {
 		var cookie = document.cookie.split("; ");
 		var cookie2;
 		var value = "";
-		
+			
 		for(var i=0;i<cookie.length;i++) {
 			cookie2 = cookie[i].split("=");
 			
@@ -40,25 +41,63 @@
 		return value;
 	}
 
+   	function setCookie(cookieName, cookieValue, expires){
+
+//    	"USERNM=brown; path=/; expires=Wed, 07 Oct 2020 00:38:35 GMT;";
+//		이 문자열을 바꿔줘야 하는것 !
+
+   		//1. 현재 날짜 구하기
+   		var today = new Date();
+   		//2. 현재 날짜 + 기간
+   		today.setDate(today.getDate() + expires);
+		document.cookie = cookieName + "=" + cookieValue + "; path=/; expires=" + today.toGMTString();
+		console.log(document.cookie);
+   	}
+
+	//해당쿠키의 expires 속성을 과거날짜로 변경 (deleteCookie)
+	function deleteCookie(cookieName){
+		setCookie(cookieName,"",-1);
+	}
+
+	$(function(){
+		if(getCookieValue("REMEMBERME") == "Y"){
+			$('#remember').prop("checked", true);
+
+			var user = getCookieValue("USERNM");
+
+			$('#inputEmail').val(user);
+		}
+
+		$('button').on('click',function(){
+			if($('#remember').prop("checked")==true){
+				user = $('#inputEmail').val();
+				setCookie("USERNM",user,3);
+				setCookie("REMEMBERME","Y",3);
+			} else {
+				deleteCookie("USERNM");
+				deleteCookie("REMEMBERME");
+			}
+			$('form').submit();
+		})
+	})
+	
+   	
     </script>
   </head>
-
   <body>
-
     <div class="container">
-
-      <form class="form-signin">
+      <form class="form-signin" action="<%=request.getContextPath() %>/login" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" name="userId" id="inputEmail" class="form-control" value="brown" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required value="1234">
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me" id="remember"> Remember me
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
       </form>
 
     </div> <!-- /container -->
