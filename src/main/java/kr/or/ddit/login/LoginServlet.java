@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 		if(memberVO == null) {
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		} // 비밀번호가 일치하는 경우 
-		else if(memberVO.getPassword().equals(password)) {
+		else if(memberVO.getPass().equals(password)) {
 			request.getSession().setAttribute("S_MEMBER", memberVO);
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 		} // 비밀번호가 틀린 경우

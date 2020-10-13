@@ -57,4 +57,14 @@
 		<error-code>500</error-code>
 		<location>/error/500/500.html</location>
 	</error-page>
+	
+	<servlet>
+		<servlet-name>dbConnectionPool</servlet-name>
+		<servlet-class>kr.or.ddit.db.ConnectionPoolServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dbConnectionPool</servlet-name>
+		<url-pattern>/dbConnectionPool</url-pattern>
+	</servlet-mapping>
 </web-app>

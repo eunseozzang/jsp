@@ -2,6 +2,8 @@ package kr.or.ddit.member.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import kr.or.ddit.member.dao.MemberDao;
@@ -17,17 +19,27 @@ public class MemberServiceTest {
 		String userId = "brown";
 		
 		MemberVO answerMemberVo = new MemberVO();
-		answerMemberVo.setUserId("brown");
-		answerMemberVo.setPassword("1234");
+		answerMemberVo.setUserid("brown");
+		answerMemberVo.setPass("brownPass");
 		
 		/***When***/
 		MemberVO memberVo = memberService.getMember(userId);
 		
 		/***Then***/
-		assertEquals("brown", memberVo.getUserId());
-		assertEquals("1234", memberVo.getPassword());
+		assertEquals("brown", memberVo.getUserid());
+		assertEquals("brownPass", memberVo.getPass());
 		
 		assertEquals(answerMemberVo, memberVo);
+	}
+	
+	@Test
+	public void getAllMembertest() {
+		/***Given***/
+		MemberServiceI memberService = new MemberService();
+		/***When***/
+		List<MemberVO> memList = memberService.getAllMember();
+		/***Then***/
+		assertEquals(5, memList.size());
 	}
 
 

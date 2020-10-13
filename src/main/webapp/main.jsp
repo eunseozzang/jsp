@@ -1,3 +1,5 @@
+<%@page import="kr.or.ddit.job.model.JobVO"%>
+<%@page import="java.util.List"%>
 <%@page import="kr.or.ddit.member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -41,7 +43,7 @@
 			<a class="navbar-brand" href="#">JSP/SPRING
 			<%
 				if(memberVO != null){	%>
-				[<%=memberVO.getUserId() %>]
+				[<%=memberVO.getUserid() %>]
 			<%
 				}
 			%>
@@ -66,6 +68,7 @@
 			<ul class="nav nav-sidebar">
 				<li class="active"><a href="#">Main <span class="sr-only">(current)</span></a></li>
 				<li class="active"><a href="#">사용자</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/GetAllJobServlet">jobs</a></li>
 			</ul>
 		</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
