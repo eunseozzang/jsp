@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- <link href="/css/public.css"> -->
-<%-- <link rel="stylesheet" href="<%=request.getContextPath() %>/css/public.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/css/public.css"> --%>
 </head>
 <body>
 	<!-- 자바 언어의 철칙 (자바는 굉장히 정적)
@@ -41,7 +41,7 @@
 		</tr>
 		<tr>
 			<td>request.getContextPath()</td>
-			<td><%= request.getContextPath() %></td>
+			<td>${pageContext.request.contextPath }</td>
 		</tr>
 	</table>
 </body>

@@ -24,6 +24,14 @@ public class LoginServlet extends HttpServlet {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);
        
+	private MemberServiceI memberService;
+	
+	@Override
+	public void init() throws ServletException {
+		//여기서 service 객체를 초기화 할것임 !
+		memberService = new MemberService();
+	}
+	
 	//login 화면을 클라이언트에게 응답으로 생성
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -42,7 +50,6 @@ public class LoginServlet extends HttpServlet {
 		WHERE 회원아이디 = 파라미터로 넘어온 userId;
 		 */
 		
-		MemberServiceI memberService = new MemberService();
 		MemberVO memberVO = memberService.getMember(userId);
 		
 		//디비에 등록된 회원이 없는 경우
