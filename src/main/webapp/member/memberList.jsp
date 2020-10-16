@@ -47,7 +47,7 @@
       <c:forEach items="${memberList }" var="member">
          <tr>
             <td>${member.userid }</td>
-            <td>${member.pass }</td>
+            <td>${member.usernm }</td>
             <td>${member.alias }</td>
             <td>${member.reg_dt }</td>
          </tr>
@@ -57,13 +57,19 @@
 
 		<a class="btn btn-default pull-right">사용자 등록</a>
 
+<!-- 		현재 있는 페이지이면 if넣어서 active, 아니면 else  -->
 		<div class="text-center">
 			<ul class="pagination">
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
+				<c:forEach var="i" begin="1" end="${pages }">
+					<c:choose>
+						<c:when test="${i == page }">
+							<li class="active"><span>${i }</span></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="${pageContext.request.contextPath }/memberList?page=${i }">${i }</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
