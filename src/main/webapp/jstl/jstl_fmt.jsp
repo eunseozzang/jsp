@@ -1,3 +1,4 @@
+<%@page import="ch.qos.logback.core.recovery.ResilientSyslogOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -10,6 +11,8 @@
 <title>Insert title here</title>
 <script>
 	$(function(){
+		// select box 옵션 바꿔주기
+		$('#selectLang').val("${param.lang == null ? 'ko' : param.lang}");
 		$('#selectLang').on('change',function(){
 			lang = $('#selectLang').val()
 // 			window.location = "http://localhost/jstl/jstl_fmt.jsp?lang=" + lang
@@ -28,12 +31,14 @@
     --%>
 
    <!-- locale 정보를 변경 -->
-   <select name="selectLang" id="selectLang">
-	    <option value="">지역 선택</option>
-	    <option value="ko">한국</option>
-	    <option value="ja">일본</option>
-	    <option value="en">미국</option>
-	</select><br>
+	<%
+		String lang = request.getParameter("lang");
+	%>
+	<select name="selectLang" id="selectLang">
+	    <option value="ko">한국어</option>
+	    <option value="ja">日本語 </option>
+	    <option value="en">ENGLISH</option>
+	</select><br><br>
 <%--    <% request.getParameter("lang"); // 아래와 동일 %>  --%>
      
    <fmt:setLocale value="${param.lang }"/>
@@ -42,7 +47,6 @@
    <% 
       request.setAttribute("userId", "brown");
    %>
-   <c:set ></c:set>
    <fmt:bundle basename="kr.or.ddit.resource.message">
       <fmt:message key="GREETING" var="greeting"/>[${greeting }]<br>
       <fmt:message key="LOGIN_MSG">
