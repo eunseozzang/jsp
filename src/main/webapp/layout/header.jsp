@@ -23,6 +23,12 @@
 				<li><a href="#">Settings</a></li>
 				<li><a href="#">Profile</a></li>
 				<li><a href="#">Help</a></li>
+				<li>
+					<c:choose>
+						<c:when test="${S_MEMBER == null}"><a href="${pageContext.request.contextPath }/login">Login</a></c:when>
+						<c:when test="${S_MEMBER != null}"><a href="${pageContext.request.contextPath }/logout">Logout</a></c:when>
+					</c:choose>
+				</li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">

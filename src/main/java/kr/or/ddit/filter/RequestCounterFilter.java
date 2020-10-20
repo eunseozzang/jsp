@@ -35,10 +35,6 @@ public class RequestCounterFilter implements Filter{
 	// login 화면에서
 	
 	
-	
-	
-	
-	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -73,6 +69,9 @@ public class RequestCounterFilter implements Filter{
 		//전처리 : 요청이 서블릿으로 가기전에 실행되는 부분
 		logger.debug("RequestCounterFilter 전처리 부분 - chain.doFilter 호출전");
 		chain.doFilter(request, response);
+		//후처리
+		logger.debug("RequestCounterFilter 후처리");
+		
 	}
 
 	@Override
