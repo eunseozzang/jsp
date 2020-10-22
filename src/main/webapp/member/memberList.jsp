@@ -74,7 +74,7 @@
    </table>
 		</div>
 
-		<a class="btn btn-default pull-right">사용자 등록</a>
+		<a href="${cp }/memberRegist" class="btn btn-default pull-right">사용자 등록</a>
 
 <!-- 		현재 있는 페이지이면 if넣어서 active, 아니면 else  -->
 		<div class="text-center">

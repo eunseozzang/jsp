@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class UnitFilter
  */
-@WebFilter("/*")
+
+//@WebFilter("/*")
 public class UnitFilter implements Filter {
-
-
+	
 	public void destroy() {
+		
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -30,6 +31,7 @@ public class UnitFilter implements Filter {
 		chain.doFilter(req, response);
 		//chain.doFilter(request,response);
 	}
+	
 	public void init(FilterConfig fConfig) throws ServletException {
 		
 	}

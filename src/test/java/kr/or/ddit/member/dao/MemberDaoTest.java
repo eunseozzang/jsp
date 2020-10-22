@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.junit.Before;
 import org.junit.Test;
 
 import kr.or.ddit.db.MybatisUtil;
@@ -15,12 +16,29 @@ import kr.or.ddit.member.model.MemberVO;
 import kr.or.ddit.member.model.PageVO;
 
 public class MemberDaoTest {
+	
+//	테스트 메소드 : 
+	
+//	@BeforeClass (static)
+//	@Before => @Test => @After
+//	@Before => @Test => @After
+//	@Before => @Test => @After
+//
+//	@AfterClass (static)
+	MemberDaoI memberDao;
+	
+	@Before
+	public void setup() {
+		memberDao = new MemberDao();
+		String userid = "eunseo";
+		memberDao.deleteMember(userid);
+	}
 
 	// 실행하려고하는 메소드의 이름뒤에 test만 붙여준다.
 	@Test
 	public void getMembertest() {
 		/***Given***/
-		MemberDaoI memberDao = new MemberDao();
+		memberDao = new MemberDao();
 		String userId = "brown";
 		
 		MemberVO answerMemberVo = new MemberVO();
@@ -33,10 +51,7 @@ public class MemberDaoTest {
 		MemberVO memberVo = memberDao.getMember(userId);
 		
 		/***Then***/
-//		assertEquals("brown", memberVo.getUserId());
-//		assertEquals("1234", memberVo.getPassword());
-		
-		assertEquals(answerMemberVo.toString(), memberVo.toString());
+		assertEquals("brown", memberVo.getUserid());
 		
 	}
 	
@@ -44,7 +59,7 @@ public class MemberDaoTest {
 	public void getAllMembertest() {
 		
 		/***Given***/
-		MemberDaoI memberDao = new MemberDao();
+		memberDao = new MemberDao();
 		/***When***/
 		List<MemberVO> memList = memberDao.getAllMember();
 		/***Then***/
@@ -67,7 +82,7 @@ public class MemberDaoTest {
 	@Test
 	public void selectMemberPageListTest() {
 		/***Given***/
-		MemberDaoI memberDao = new MemberDao();
+		memberDao = new MemberDao();
 		PageVO pageVo = new PageVO(1, 7);
 		SqlSession sqlSession = MybatisUtil.getSqlSession();
 		//int page = 1;
@@ -82,7 +97,7 @@ public class MemberDaoTest {
 	@Test
 	public void selectMemberTotalCntTest() {
 		/***Given***/
-		MemberDaoI memberDao = new MemberDao();
+		memberDao = new MemberDao();
 		SqlSession sqlSession = MybatisUtil.getSqlSession();
 
 		/***When***/
@@ -90,6 +105,19 @@ public class MemberDaoTest {
 
 		/***Then***/
 		assertEquals(15, totalCnt);
+	}
+	
+	@Test
+	public void insertMemberDaoTest() {
+		/***Given***/
+		memberDao = new MemberDao();
+		memberDao.deleteMember("eunseo");
+		MemberVO memberVO = new MemberVO("eunseo", "1234", "최은서", "es", "대전 중구 태평로 15", "139-802", "34890", "d:\\profile\\ces.png", "ces.png");
+		/***When***/
+		int insertCnt = memberDao.insertMember(memberVO);
+		
+		/***Then***/
+		assertEquals(1, insertCnt);
 	}
 	
 

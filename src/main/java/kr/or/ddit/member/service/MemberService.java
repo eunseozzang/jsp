@@ -63,4 +63,22 @@ public class MemberService implements MemberServiceI {
 		sqlSession.close();
 		return map;
 	}
+
+
+	@Override
+	public int insertMember(MemberVO memberVO) {
+		return memberDao.insertMember(memberVO);
+	}
+
+
+	@Override
+	public int deleteMember(String userid) {
+		return memberDao.deleteMember(userid);
+	}
+
+
+	@Override
+	public int updateMember(MemberVO memberVO) {
+		return memberDao.updateMember(memberVO);
+	}
 }

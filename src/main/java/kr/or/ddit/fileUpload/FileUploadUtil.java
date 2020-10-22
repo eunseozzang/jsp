@@ -12,9 +12,6 @@ public class FileUploadUtil {
    public static String getFilename(String contentDisposition) {
       String filename = "";
       String[] values = contentDisposition.split("; ");
-      
-      logger.debug("values : {}", values);
-      
       for (String index : values) {
          String[] value = index.split("=");
          if (value[0].equals("filename")){
@@ -23,5 +20,14 @@ public class FileUploadUtil {
          }
       }
       return filename;
+   }
+   
+   public static String getExtension(String filename) {
+	   if(filename == null || filename.indexOf(".") == -1) {
+		   return "";
+	   } else {
+		   return filename.split("\\.")[1];
+	   }
+	   
    }
 }

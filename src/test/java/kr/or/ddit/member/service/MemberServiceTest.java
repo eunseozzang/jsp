@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +22,21 @@ public class MemberServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(MemberServiceTest.class);
 	
 	// 실행하려고하는 메소드의 이름뒤에 test만 붙여준다.
+	
+	MemberServiceI memberService;
+	
+	@Before
+	public void setup() {
+		memberService = new MemberService();
+		String userid = "eunseo";
+		memberService.deleteMember(userid);
+	}
+	
+	
 	@Test
 	public void getMembertest() {
 		/***Given***/
-		MemberServiceI memberService = new MemberService();
+		memberService = new MemberService();
 		String userId = "brown";
 		
 		MemberVO answerMemberVo = new MemberVO();
@@ -42,7 +54,7 @@ public class MemberServiceTest {
 	@Test
 	public void getAllMembertest() {
 		/***Given***/
-		MemberServiceI memberService = new MemberService();
+		memberService = new MemberService();
 		/***When***/
 		List<MemberVO> memList = memberService.getAllMember();
 		/***Then***/
@@ -65,7 +77,7 @@ public class MemberServiceTest {
 	@Test
 	public void selectMemberPageListTest() {
 		/***Given***/
-		MemberServiceI memberService = new MemberService();
+		memberService = new MemberService();
 		PageVO pageVo = new PageVO(1, 7);
 
 		/***When***/
@@ -87,5 +99,19 @@ public class MemberServiceTest {
 		for(Locale locale : locales) {
 			logger.debug("{}", locale);
 		}
+	}
+	
+	@Test
+	public void insertMemberTest() {
+		/***Given***/
+		memberService = new MemberService();
+		memberService.deleteMember("eunseo");
+		MemberVO memberVO = new MemberVO("eunseo", "1234", "최은서", "es", "대전 중구 태평로 15", "139-802", "34890", "d:\\profile\\ces.png", "ces.png");
+		/***When***/
+		int insertCnt = memberService.insertMember(memberVO);
+		/***Then***/
+		assertEquals(1,insertCnt);
+		
+		
 	}
 }

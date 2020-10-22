@@ -108,7 +108,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-default">사용자 수정</button>
+							<a href="${cp }/memberUpdate?userid=${memberVO.userid}" class="btn btn-default pull-right">사용자 수정</a>
 						</div>
 					</div>
 				</form>

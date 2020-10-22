@@ -15,4 +15,10 @@ public interface MemberServiceI {
 //	Map<String, Object> memberPaging(Map<String, Integer> maps);
 	
 	Map<String, Object> selectMemberPageList(PageVO pageVo);
+	
+	int insertMember(MemberVO memberVO);
+	
+	int deleteMember(String userid);
+	
+	int updateMember(MemberVO memberVO);
 }
