@@ -19,6 +19,18 @@
 
 <title>Jsp</title>
 <%@ include file="/layout/commonLib.jsp" %>
+
+<script>
+	$(document).ready(function(){
+		$("#memberList tr").on("click",function(){
+			var userid = $(this).data("userid");
+
+			console.log("userid : " + userid)
+
+			document.location = "/member?userid=" + userid;
+			})
+	})
+</script>
 </head>
 
 <body>
@@ -45,8 +57,11 @@
             <th>사용자 별명</th>
             <th>등록일시</th>
          </tr>
+         <tbody id="memberList">
+<!--          tr태그를 전부 날리지 않고 tbody안에 있는 내용만 날릴 때 주로 사용 -->
       <c:forEach items="${memberList }" var="member">
-         <tr>
+         <tr data-userid="${member.userid }">
+<%--          	<input type="hidden" value="${member.userid }"/> --%>
             <td>${member.userid }</td>
             <td>${member.usernm }</td>
             <td>${member.alias }</td>
@@ -55,6 +70,7 @@
             
          </tr>
       </c:forEach>
+         </tbody>
    </table>
 		</div>
 
