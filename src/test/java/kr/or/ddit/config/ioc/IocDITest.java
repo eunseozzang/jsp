@@ -87,5 +87,8 @@ public class IocDITest {
       assertEquals("첫번째 글", boardVo.getTitle());
    
    }
+   
+   
+   
 
 }
