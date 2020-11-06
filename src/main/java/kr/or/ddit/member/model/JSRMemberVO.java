@@ -4,12 +4,14 @@ import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class MemberVO {
+public class JSRMemberVO {
 	
 	private String userid;
 	private String pass;
 	
-//	@NotEmpty
+	//Null이면 안되고, empty 체크
+	
+	@NotEmpty
 	private String usernm;
 	
 	private Date reg_dt;
@@ -20,13 +22,13 @@ public class MemberVO {
 	private String filename;
 	private String realfilename;
 	
-	public MemberVO() {
+	public JSRMemberVO() {
 		
 		
 	}
 	
 	// 이거 쓰려면 인자없는 기본생성자를 만들어줘야한다.
-	public MemberVO(String userid, String pass, String usernm, String alias, String addr1, String addr2, String zipcode,
+	public JSRMemberVO(String userid, String pass, String usernm, String alias, String addr1, String addr2, String zipcode,
 			String filename, String realfilename) {
 //		super(); 부모(Object)의 생성자라 굳이 호출할 필요가 없다.
 		this.userid = userid;
@@ -131,7 +133,7 @@ public class MemberVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MemberVO other = (MemberVO) obj;
+		JSRMemberVO other = (JSRMemberVO) obj;
 		if (addr1 == null) {
 			if (other.addr1 != null)
 				return false;

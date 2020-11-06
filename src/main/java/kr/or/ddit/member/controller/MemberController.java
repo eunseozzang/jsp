@@ -10,18 +10,22 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.ddit.fileUpload.FileUploadUtil;
+import kr.or.ddit.member.model.JSRMemberVO;
 import kr.or.ddit.member.model.MemberVO;
+import kr.or.ddit.member.model.MemberVoValidator;
 import kr.or.ddit.member.model.PageVO;
 import kr.or.ddit.member.service.MemberServiceI;
 
@@ -104,43 +108,41 @@ public class MemberController {
 	
 	
 	@RequestMapping(path="memberRegist", method = RequestMethod.POST)
-	public String memberRegist(MemberVO memberVO, @RequestPart("file") MultipartFile file) {
+	public String memberRegist(@Valid MemberVO memberVO, @RequestPart("file") MultipartFile file, BindingResult br) {
 		
 		
+		new MemberVoValidator().validate(memberVO, br);
+		// 검증을 통과하지 못했으므로 사용자 등록 화면으로 이동
+		
+		if (br.hasErrors()) {
+			return "member/memberRegist";
+		}
 		String filename = UUID.randomUUID().toString();
 		String extension = FileUploadUtil.getExtension(file.getOriginalFilename());
-		
 		String filepath = "D:\\profile\\" + filename + "." + extension;
-		
 		File uploadFile = new File(filepath);
+		logger.debug("사용자 정보 : {}", memberVO);
 		
-		logger.debug("사용자 정보 : {}",memberVO);
-		
-		try {
-			file.transferTo(uploadFile);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		logger.debug("파일이름 : {}, 확장자 : {}",filename,extension);
-		
-		if(file.getSize() > 0) {
+		if (file.getSize() > 0) {
+			try {
+				file.transferTo(uploadFile);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			logger.debug("파일이름 : {}, 확장자 : {}", filename, extension);
 			memberVO.setFilename(filepath);
 			memberVO.setRealfilename(file.getOriginalFilename());
 		}
 		
 		int insertCnt = memberService.insertMember(memberVO);
-		
-		
-		logger.debug("등록 ? {}",insertCnt);
-		
-		if(insertCnt == 1) {
+		logger.debug("등록 ? {}", insertCnt);
+		if (insertCnt == 1) {
 			return "redirect:/member/memberList";
 		} else {
 			return "member/memberRegist";
 		}
 	}
-	
+
 	@RequestMapping("memberUpdateView")
 	public String memberUpdateView(String userid, Model model) {
 		
@@ -152,7 +154,7 @@ public class MemberController {
 	
 	@RequestMapping(path="memberUpdate", method = RequestMethod.POST)
 	public String memberUpdate(MemberVO memberVO, @RequestPart("file") MultipartFile file) {
-		
+		//MultipartFile profile 이라고 써도 됨
 		
 		logger.debug("사용자 정보 : {}",memberVO);
 		
@@ -219,4 +221,5 @@ public class MemberController {
 		
 	}
 	
+
 }
