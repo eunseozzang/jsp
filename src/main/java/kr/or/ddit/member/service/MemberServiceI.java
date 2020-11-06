@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.member.model.MemberVO;
+import kr.or.ddit.member.model.PageVO;
 
 public interface MemberServiceI {
 	
@@ -19,4 +20,6 @@ public interface MemberServiceI {
 	int deleteMember(String userid);
 	
 	int updateMember(MemberVO memberVO);
+	
+	Map<String, Object> selectMemberPageList(PageVO pageVo);
 }

@@ -1,4 +1,4 @@
-package kr.or.ddit.fileupload.web;
+package kr.or.ddit.mvc.fileupload.web;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class FileUploadController {
 	
 	//파일업로드 처리 메소드
 	@RequestMapping(path="/upload")
-	public String process(String userid, @RequestPart("fileupload")MultipartFile file) {
+	public String process(String userid, @RequestPart("file")MultipartFile file) {
 		logger.debug("userid : {}",userid);
 		logger.debug("name : {}, filename : {}, size : {}",file.getName(),file.getOriginalFilename(),file.getSize());
 		

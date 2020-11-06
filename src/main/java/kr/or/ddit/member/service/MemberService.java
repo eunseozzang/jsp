@@ -13,6 +13,7 @@ import kr.or.ddit.db.MybatisUtil;
 import kr.or.ddit.member.dao.MemberDao;
 import kr.or.ddit.member.dao.MemberDaoI;
 import kr.or.ddit.member.model.MemberVO;
+import kr.or.ddit.member.model.PageVO;
 
 @Service("memberService")
 public class MemberService implements MemberServiceI {
@@ -66,5 +67,24 @@ public class MemberService implements MemberServiceI {
 	@Override
 	public int updateMember(MemberVO memberVO) {
 		return memberDao.updateMember(memberVO);
+	}
+	
+	@Override
+	public Map<String, Object> selectMemberPageList(PageVO pageVO) {
+		
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberList", memberDao.selectMemberPageList(sqlSession, pageVO));
+		
+		//15건, 페이지 사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
+		// 15/7 = 2.14.... 올림을 하여 3개의 페이지가 필요
+		//Math.ceil()
+		int totalCnt = memberDao.selectMemberTotalCnt(sqlSession);
+		int pages = (int)Math.ceil( (double) totalCnt/ pageVO.getPageSize() );
+		map.put("pages", pages);
+		
+		sqlSession.close();
+		return map;
 	}
 }

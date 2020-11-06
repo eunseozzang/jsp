@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.db.MybatisUtil;
 import kr.or.ddit.member.model.MemberVO;
+import kr.or.ddit.member.model.PageVO;
 
 @Repository("memberRepository")
 public class MemberDao implements MemberDaoI{
@@ -52,6 +53,11 @@ public class MemberDao implements MemberDaoI{
 	@Override
 	public int selectMemberTotalCnt(SqlSession sqlSession) {
 		return sqlSession.selectOne("member.selectMemberTotalCnt");
+	}
+	
+	@Override
+	public List<MemberVO> selectMemberPageList(SqlSession sqlSession, PageVO pageVo) {
+		return sqlSession.selectList("member.selectMemberPageList", pageVo);
 	}
 	
 

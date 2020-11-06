@@ -33,7 +33,7 @@
 		     FROM
 		        (SELECT *
 		         FROM users
-		         ORDER BY userid) a )
+		         ORDER BY reg_dt desc) a )
 		WHERE rn BETWEEN (#{page} - 1) * #{pageSize} + 1  AND #{page} * #{pageSize}
   </select>
   

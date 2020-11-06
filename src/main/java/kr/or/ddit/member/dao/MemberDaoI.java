@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.ddit.member.model.MemberVO;
+import kr.or.ddit.member.model.PageVO;
 
 public interface MemberDaoI {
 	
@@ -23,4 +24,6 @@ public interface MemberDaoI {
 	int deleteMember(String userid);
 	
 	int updateMember(MemberVO memberVO);
+	
+	List<MemberVO> selectMemberPageList(SqlSession sqlSession, PageVO pageVo);
 }
