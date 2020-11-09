@@ -1,67 +1,69 @@
 <%@page import="org.apache.tomcat.util.http.Cookies"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="../../favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+<title>Signin Template for Bootstrap</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="${cp }/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="${cp }/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="${cp }/css/signin.css" rel="stylesheet">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="${cp }/js/js.cookie-2.2.1.min.js"></script>
-    
-    <script type="text/javascript">
-    
-    function getCookieValue(cookieName) {
+<!-- Custom styles for this template -->
+<link href="${cp }/css/signin.css" rel="stylesheet">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="${cp }/js/js.cookie-2.2.1.min.js"></script>
+
+<script type="text/javascript">
+	function getCookieValue(cookieName) {
 		var cookie = document.cookie.split("; ");
 		var cookie2;
 		var value = "";
-			
-		for(var i=0;i<cookie.length;i++) {
+
+		for (var i = 0; i < cookie.length; i++) {
 			cookie2 = cookie[i].split("=");
-			
-			if(cookie2[0]==cookieName) {
+
+			if (cookie2[0] == cookieName) {
 				value = cookie2[1];
 			}
 		}
 		return value;
 	}
 
-   	function setCookie(cookieName, cookieValue, expires){
+	function setCookie(cookieName, cookieValue, expires) {
 
-//    	"USERNM=brown; path=/; expires=Wed, 07 Oct 2020 00:38:35 GMT;";
-//		이 문자열을 바꿔줘야 하는것 !
+		//    	"USERNM=brown; path=/; expires=Wed, 07 Oct 2020 00:38:35 GMT;";
+		//		이 문자열을 바꿔줘야 하는것 !
 
-   		//1. 현재 날짜 구하기
-   		var today = new Date();
-   		//2. 현재 날짜 + 기간
-   		today.setDate(today.getDate() + expires);
-		document.cookie = cookieName + "=" + cookieValue + "; path=/; expires=" + today.toGMTString();
+		//1. 현재 날짜 구하기
+		var today = new Date();
+		//2. 현재 날짜 + 기간
+		today.setDate(today.getDate() + expires);
+		document.cookie = cookieName + "=" + cookieValue + "; path=/; expires="
+				+ today.toGMTString();
 		console.log(document.cookie);
-   	}
-
-	//해당쿠키의 expires 속성을 과거날짜로 변경 (deleteCookie)
-	function deleteCookie(cookieName){
-		setCookie(cookieName,"",-1);
 	}
 
-	$(function(){
-		if(getCookieValue("REMEMBERME") == "Y"){
+	//해당쿠키의 expires 속성을 과거날짜로 변경 (deleteCookie)
+	function deleteCookie(cookieName) {
+		setCookie(cookieName, "", -1);
+	}
+
+	$(function() {
+		if (getCookieValue("REMEMBERME") == "Y") {
 			$('#remember').prop("checked", true);
 
 			var user = getCookieValue("USERNM");
@@ -69,11 +71,11 @@
 			$('#inputEmail').val(user);
 		}
 
-		$('button').on('click',function(){
-			if($('#remember').prop("checked")==true){
+		$('button').on('click', function() {
+			if ($('#remember').prop("checked") == true) {
 				user = $('#inputEmail').val();
-				setCookie("USERNM",user,3);
-				setCookie("REMEMBERME","Y",3);
+				setCookie("USERNM", user, 3);
+				setCookie("REMEMBERME", "Y", 3);
 			} else {
 				deleteCookie("USERNM");
 				deleteCookie("REMEMBERME");
@@ -81,31 +83,34 @@
 			$('form').submit();
 		})
 	})
-	
-   	
-    </script>
-  </head>
-  <body>
-  	msg : ${msg }<br>
-  	msg_s : ${msg_s }<br>
-  	<c:remove var="msg_s" scope="session"/>
-  	msg_ra : ${msg_ra }<br>
-  	msg_ra_attr : ${msg_ra_attr }
-    <div class="container">
-      <form class="form-signin" action="${cp }/login/process" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="userid" id="inputEmail" class="form-control" value="brown" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required value="1234">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me" id="remember"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
-      </form>
+</script>
+</head>
+<body>
+	msg : ${msg }
+	<br> msg_s : ${msg_s }
+	<br>
+	<c:remove var="msg_s" scope="session" />
+	msg_ra : ${msg_ra }
+	<br> msg_ra_attr : ${msg_ra_attr }
+	<div class="container">
+		<form class="form-signin" action="${cp }/login/process" method="post">
+			<h2 class="form-signin-heading"><spring:message code="login.signin"/></h2>
+			<label for="inputEmail" class="sr-only"><spring:message code="login.userid"/></label> <input
+				type="email" name="userid" id="inputEmail" class="form-control"
+				value="brown" placeholder="Email address" required autofocus>
+			<label for="inputPassword" class="sr-only"><spring:message code="login.password"/></label> <input
+				type="password" name="pass" id="inputPassword" class="form-control"
+				placeholder="Password" required value="1234">
+			<div class="checkbox">
+				<label> <input type="checkbox" value="remember-me"
+					id="remember"><spring:message code="login.rememberme"/>
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="button">Sign
+				in</button>
+		</form>
 
-    </div> <!-- /container -->
-  </body>
+	</div>
+	<!-- /container -->
+</body>
 </html>
