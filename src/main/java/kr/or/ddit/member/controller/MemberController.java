@@ -108,10 +108,10 @@ public class MemberController {
 	
 	
 	@RequestMapping(path="memberRegist", method = RequestMethod.POST)
-	public String memberRegist(@Valid MemberVO memberVO, @RequestPart("file") MultipartFile file, BindingResult br) {
+	public String memberRegist(@Valid MemberVO memberVO, BindingResult br, @RequestPart("file") MultipartFile file) {
 		
 		
-		new MemberVoValidator().validate(memberVO, br);
+//		new MemberVoValidator().validate(memberVO, br);
 		// 검증을 통과하지 못했으므로 사용자 등록 화면으로 이동
 		
 		if (br.hasErrors()) {

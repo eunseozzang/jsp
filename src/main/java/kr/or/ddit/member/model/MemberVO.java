@@ -9,7 +9,7 @@ public class MemberVO {
 	private String userid;
 	private String pass;
 	
-//	@NotEmpty
+	@NotEmpty
 	private String usernm;
 	
 	private Date reg_dt;

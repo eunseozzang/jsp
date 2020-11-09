@@ -15,6 +15,12 @@
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 	
+	<bean id="profileDownloadView" class="kr.or.ddit.mvc.view.ProfileDownloadView"></bean>
+	<bean id="profileImgView" class="kr.or.ddit.mvc.view.ProfileImgView"></bean>
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"></property>
+	</bean>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 <!-- 		prefix : 접두어, suffix : 접미어 
 			Controller가 리턴하는 문자열에 prefix, suffix를 적용하여 해당 경로의 파일로 응답을 생성.
@@ -25,7 +31,8 @@
 			==> "/WEB-INF/views/login/view.jsp"
 -->
 		<property name="prefix" value="/WEB-INF/views/"/>
-		<property name="suffix" value=".jsp"/>		
+		<property name="suffix" value=".jsp"/>	
+		<property name="order" value="1"></property>	
 	</bean>
 <!-- 	@Controller, @RequestMapping, HandlerMapping, HandlerAdapter, formatting conversion service 등, validation
 		spring mvc 패턴에 필요한 어노테이션, 엘레멘트 처리 -->
@@ -42,7 +49,27 @@
  		1. url단축을 목적
  		2. WEB-INF : 외부에서 접근 불가능한 공간에 저장된 자원들 접근 매핑 -->
 <!--  		localhost/resources/style.css -->
- 		<mvc:resources location="/WEB-INF/views/error/" mapping="/resources/**"></mvc:resources>
+ 		<mvc:resources location="/WEB-INF/views/error/" mapping="/resources/**"/>
+
+
+	<!-- interceptor설정 -->
+<!-- 	<mvc:interceptors> -->
+
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/**" /> -->
+<!-- 			<bean class="kr.or.ddit.mvc.interceptor.PerformanceCheckInterceptor" /> -->
+<!-- 		</mvc:interceptor> -->
+
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/**" /> -->
+<!-- 			<mvc:exclude-mapping path="/login/**" /> -->
+<!-- 			<mvc:exclude-mapping path="/js/**" /> -->
+<!-- 			<mvc:exclude-mapping path="/css/**" /> -->
+<!-- 			<mvc:exclude-mapping path="/resources/**" /> -->
+<!-- 			<bean class="kr.or.ddit.mvc.interceptor.SessionCheckInterceptor" /> -->
+<!-- 		</mvc:interceptor> -->
+		
+<!-- 	</mvc:interceptors> -->
 </beans>
 
 

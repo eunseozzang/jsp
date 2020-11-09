@@ -1,6 +1,5 @@
 package kr.or.ddit.member.model;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
