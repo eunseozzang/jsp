@@ -41,6 +41,11 @@ public class MemberVO {
 	}
 	
 
+	public MemberVO(String userid, String usernm) {
+		this.userid = userid;
+		this.usernm = usernm;
+	}
+
 	public String getAddr1() {
 		return addr1;
 	}
