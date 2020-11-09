@@ -61,7 +61,7 @@ public class MemberController {
 		model.addAttribute("memberList", map.get("memberList"));
 		model.addAttribute("pages", map.get("pages"));
 
-		return "/member/memberList";
+		return "tiles/member/memberListContent";
 	}
 
 	// 개인정보 출력
@@ -73,7 +73,7 @@ public class MemberController {
 		MemberVO memberVO = memberService.getMember(userid);
 
 		model.addAttribute("memberVO", memberVO);
-		return "/member/member";
+		return "tiles/member/memberContent";
 
 	}
 
@@ -103,7 +103,7 @@ public class MemberController {
 	
 	@RequestMapping("memberRegistView")
 	public String memberRegistView() {
-		return "member/memberRegist";
+		return "tiles/member/memberRegistContent";
 	}
 	
 	
@@ -149,7 +149,7 @@ public class MemberController {
 		MemberVO memberVO = memberService.getMember(userid);
 		
 		model.addAttribute("memberVO", memberVO);
-		return "member/memberUpdate";
+		return "tiles/member/memberUpdateContent";
 	}
 	
 	@RequestMapping(path="memberUpdate", method = RequestMethod.POST)

@@ -20,7 +20,24 @@
 	<bean id="excelView" class="kr.or.ddit.mvc.view.ExcelDownloadView"></bean>
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1"></property>
+	</bean>
+	
+<!-- 	tiles view resolver 추가
+		1. tiles 설정작업 ==> TilesConfigurer를 통해 설정
+		2. tiles view resolver 등록 -->
+		
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:kr/or/ddit/config/tiles/tiles-definition.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<property name="order" value="0"></property>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
 	</bean>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 <!-- 		prefix : 접두어, suffix : 접미어 
@@ -33,7 +50,7 @@
 -->
 		<property name="prefix" value="/WEB-INF/views/"/>
 		<property name="suffix" value=".jsp"/>	
-		<property name="order" value="1"></property>	
+		<property name="order" value="2"></property>	
 	</bean>
 <!-- 	@Controller, @RequestMapping, HandlerMapping, HandlerAdapter, formatting conversion service 등, validation
 		spring mvc 패턴에 필요한 어노테이션, 엘레멘트 처리 -->
@@ -52,7 +69,20 @@
 <!--  		localhost/resources/style.css -->
  		<mvc:resources location="/WEB-INF/views/error/" mapping="/resources/**"/>
 
+<!-- 		localeResolver -->
+		<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
 
+<!-- 	locale 변경 감지 -->
+		<mvc:interceptors>
+			<mvc:interceptor>
+				<mvc:mapping path="/**"/>
+					<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+						<property name="paramName" value="lang"></property>
+					</bean>
+			</mvc:interceptor>
+		</mvc:interceptors>
+		
+		
 	<!-- interceptor설정 -->
 <!-- 	<mvc:interceptors> -->
 
