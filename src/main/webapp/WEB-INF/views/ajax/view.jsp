@@ -35,6 +35,9 @@
 							$('#respJsonString').html(JSON.stringify(data));
 						else
  							$('#respJsonString').html((new XMLSerializer()).serializeToString(data));
+					},
+					error : function(res){
+						alert("실패");
 					}	 
 				});
 		})

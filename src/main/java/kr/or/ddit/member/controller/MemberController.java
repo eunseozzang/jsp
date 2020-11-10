@@ -221,5 +221,58 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping("/memberListAjaxView")
+	public String memberListAjaxView() {
+		return "tiles/member/memberListAjax";
+	}
+	
+	//페이지 요청 (파라미터가 반드시 존재한다는 가정으로 작성)
+	@RequestMapping("/memberListAjax")
+	public String memberListAjax(PageVO pageVO, Model model) {
+		
+		logger.debug("pageVO : {}",pageVO);
+		
+		Map<String, Object> map = memberService.selectMemberPageList(pageVO);
+		model.addAttribute("memberList", map.get("memberList"));
+		model.addAttribute("pages", map.get("pages"));
+		
+		logger.debug("pages : {}",map.get("pages"));
+		return "jsonView";
+	}
+	
+	//페이지 요청 (파라미터가 반드시 존재한다는 가정으로 작성)
+	@RequestMapping("/memberListAjaxHTML")
+	public String memberListAjaxHTML(PageVO pageVO, Model model) {
+		
+		logger.debug("pageVO : {}",pageVO);
+		
+		Map<String, Object> map = memberService.selectMemberPageList(pageVO);
+		model.addAttribute("memberList", map.get("memberList"));
+		model.addAttribute("pages", map.get("pages"));
+		
+		// 응답을 html ==> jsp로 생성
+		logger.debug("pages : {}",map.get("pages"));
+		return "member/memberListAjaxHTML";
+	}
+	
+	
+	@RequestMapping("/memberAjax")
+	public String memberAjax(String userid, Model model) {
+		
+		logger.debug("userid : {}",userid);
+		
+		MemberVO memberVO = memberService.getMember(userid);
+
+		model.addAttribute("memberVO", memberVO);
+		
+		return "jsonView";
+		
+	}
+	
+	@RequestMapping("/memberAjaxPage")
+	public String memberAjaxPage() {
+		return "member/memberAjax";
+		
+	}
 
 }
