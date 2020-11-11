@@ -7,14 +7,17 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import ch.qos.logback.classic.Logger;
 import kr.or.ddit.db.MybatisUtil;
 import kr.or.ddit.member.model.MemberVO;
 import kr.or.ddit.member.model.PageVO;
 
 @Repository("memberRepository")
 public class MemberDao implements MemberDaoI{
+	
 	
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate sqlSession;
@@ -54,18 +57,19 @@ public class MemberDao implements MemberDaoI{
 
 	// 사람수 가져오는거
 	@Override
-	public int selectMemberTotalCnt(SqlSession sqlSession) {
+	public int selectMemberTotalCnt() {
 		return sqlSession.selectOne("member.selectMemberTotalCnt");
 	}
 	
 	@Override
-	public List<MemberVO> selectMemberPageList(SqlSession sqlSession, PageVO pageVo) {
+	public List<MemberVO> selectMemberPageList(PageVO pageVo) {
 		return sqlSession.selectList("member.selectMemberPageList", pageVo);
 	}
 	
 
 	@Override
 	public int insertMember(MemberVO memberVO) {
+		System.out.println("다오");
 		return sqlSession.insert("member.insertMember",memberVO);
 	}
 

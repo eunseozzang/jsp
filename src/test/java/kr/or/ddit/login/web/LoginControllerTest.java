@@ -24,8 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.or.ddit.WebTestConfig;
 
 
-
-
 public class LoginControllerTest extends WebTestConfig{
 	
 	@Test

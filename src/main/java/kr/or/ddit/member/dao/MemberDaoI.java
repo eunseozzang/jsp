@@ -16,7 +16,7 @@ public interface MemberDaoI {
 	
 //	List<MemberVO> memberPaging(Map<String, Integer> maps);
 	
-	int selectMemberTotalCnt(SqlSession sqlSession);
+	int selectMemberTotalCnt();
 	
 	
 	int insertMember(MemberVO memberVO);
@@ -25,5 +25,5 @@ public interface MemberDaoI {
 	
 	int updateMember(MemberVO memberVO);
 	
-	List<MemberVO> selectMemberPageList(SqlSession sqlSession, PageVO pageVo);
+	List<MemberVO> selectMemberPageList(PageVO pageVo);
 }

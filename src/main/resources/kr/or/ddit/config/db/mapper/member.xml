@@ -54,9 +54,9 @@
 	update users
 	set 	pass = #{pass},
 	realfilename = #{realfilename, jdbcType=VARCHAR},
-		  addr1	 = #{addr1},
-		  addr2	 = #{addr2},
-		zipcode	 = #{zipcode},
+		  addr1	 = #{addr1, jdbcType=VARCHAR},
+		  addr2	 = #{addr2, jdbcType=VARCHAR},
+		zipcode	 = #{zipcode, jdbcType=VARCHAR},
 		filename = #{filename, jdbcType=VARCHAR},
 		usernm 	 = #{usernm},
 	alias = #{alias}

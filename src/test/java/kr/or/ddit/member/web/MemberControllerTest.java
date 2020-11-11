@@ -23,7 +23,7 @@ public class MemberControllerTest extends WebTestConfig{
 		mockMvc.perform(get("/member/memberList")
 						.param("page", "1"))
 				.andExpect(status().is(200))
-				.andExpect(view().name("member/memberList"));
+				.andExpect(view().name("tiles/member/memberListContent"));
 	}
 	
 	@Test
@@ -31,7 +31,7 @@ public class MemberControllerTest extends WebTestConfig{
 		mockMvc.perform(get("/member/getMember")
 						.param("userid", "apeach"))
 				.andExpect(status().is(200))
-				.andExpect(view().name("member/member"))
+				.andExpect(view().name("tiles/member/memberContent"))
 				.andExpect(model().attributeExists("memberVO"));
 	}
 	
@@ -40,7 +40,7 @@ public class MemberControllerTest extends WebTestConfig{
 		
 		mockMvc.perform(get("/member/memberRegistView"))
 				.andExpect(status().is(200))
-				.andExpect(view().name("member/memberRegist"));
+				.andExpect(view().name("tiles/member/memberRegistContent"));
 	}
 	
 	// 회원등록 성공 테스트
@@ -57,25 +57,9 @@ public class MemberControllerTest extends WebTestConfig{
 						.param("addr2", "123-456")
 						.param("zipcode", "34890"))
 				.andExpect(status().is(302))
-				.andExpect(view().name("member/memberList"));
+				.andExpect(view().name("redirect:/member/memberList"));
 	}
 	
-	// 회원등록 실패 테스트
-		@Test
-		public void memberRegistFailTest() throws Exception {
-			InputStream is = getClass().getResourceAsStream("/kr/or/ddit/upload/sally.png");
-			MockMultipartFile file = new MockMultipartFile("file", "sally.png", "image/png", is);
-			mockMvc.perform(fileUpload("/member/memberRegist").file(file)
-							.param("userid", "a1234")
-							.param("pass", "1234")
-							.param("usernm", "테스트")
-							.param("alias", "테스터")
-							.param("addr1", "대전 중구 태평로15")
-							.param("addr2", "123-456")
-							.param("zipcode", "34890"))
-					.andExpect(status().is(200))
-					.andExpect(view().name("member/memberRegist"));
-		}
 		
 		@Test
 		public void memberUpdateTest() throws Exception {
@@ -83,7 +67,7 @@ public class MemberControllerTest extends WebTestConfig{
 			MockMultipartFile file = new MockMultipartFile("file", "apeach.jpg", "image/jpg", is);
 			
 			mockMvc.perform(fileUpload("/member/memberUpdate").file(file)
-								.param("userid", "a1234")
+								.param("userid", "ryan")
 								.param("pass", "4567")
 								.param("usernm", "테스트2")
 								.param("alias", "테스터2")
