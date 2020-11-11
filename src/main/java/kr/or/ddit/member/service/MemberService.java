@@ -7,16 +7,19 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.db.MybatisUtil;
-import kr.or.ddit.member.dao.MemberDao;
 import kr.or.ddit.member.dao.MemberDaoI;
 import kr.or.ddit.member.model.MemberVO;
 import kr.or.ddit.member.model.PageVO;
 
 @Service("memberService")
 public class MemberService implements MemberServiceI {
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
 	@Resource(name="memberRepository")
 	private MemberDaoI memberDao;
@@ -54,7 +57,21 @@ public class MemberService implements MemberServiceI {
 
 	@Override
 	public int insertMember(MemberVO memberVO) {
+		
+//		logger.debug("첫번째 insert 시작전");
+		memberDao.insertMember(memberVO);
+//		logger.debug("첫번째 insert 종료후");
+//		logger.debug("두번째 insert 시작전");
+//		memberDao.insertMember(memberVO);
+//		logger.debug("두번째 insert 종료후");
+		
+		//첫번째 쿼리 정상실행
+		//두번째쿼리 PRIMARY KEY  제약조건 실행실패
+		//첫번째는 성공했지만 트랜잭션 설정이 service
+		//모든 실행쿼리를 rollback 처리한다
+		
 		return memberDao.insertMember(memberVO);
+		
 	}
 
 

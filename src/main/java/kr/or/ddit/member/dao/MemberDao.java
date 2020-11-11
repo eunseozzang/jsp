@@ -3,7 +3,10 @@ package kr.or.ddit.member.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.db.MybatisUtil;
@@ -12,6 +15,9 @@ import kr.or.ddit.member.model.PageVO;
 
 @Repository("memberRepository")
 public class MemberDao implements MemberDaoI{
+	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public MemberVO getMember(String userId) {
@@ -24,15 +30,13 @@ public class MemberDao implements MemberDaoI{
 //		memberVo.setUserId("brown");
 //		memberVo.setPassword("1234");
 		
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
-		
 		//select
 		// 한건 : SelectOne
 		// 여러건 : selectList
 		
 		MemberVO memberVO = sqlSession.selectOne("member.getMember",userId);
 		
-		sqlSession.close();
+//		sqlSession.close();
 		
 		return memberVO;
 	}
@@ -40,11 +44,10 @@ public class MemberDao implements MemberDaoI{
 	@Override
 	public List<MemberVO> getAllMember() {
 		
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
 		
 		List<MemberVO> memList = sqlSession.selectList("member.getAllMember");
 		
-		sqlSession.close();
+//		sqlSession.close();
 		
 		return memList;
 	}
@@ -63,49 +66,30 @@ public class MemberDao implements MemberDaoI{
 
 	@Override
 	public int insertMember(MemberVO memberVO) {
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
-		
-		int insertCnt = 0;
-		
-		try {
-			insertCnt = sqlSession.insert("member.insertMember",memberVO);
-		} catch(Exception e) {
-			
-		}
-		
-		if(insertCnt == 1) {
-			sqlSession.commit();
-		} else {
-			sqlSession.rollback();
-		}
-		
-		sqlSession.close();
-		return insertCnt;
+		return sqlSession.insert("member.insertMember",memberVO);
 	}
 
 	@Override
 	public int deleteMember(String userid) {
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
 		int deleteCnt = sqlSession.delete("member.deleteMember",userid);
 		if(deleteCnt == 1) {
-			sqlSession.commit();
+//			sqlSession.commit();
 		} else {
-			sqlSession.rollback();
+//			sqlSession.rollback();
 		}
-		sqlSession.close();
+//		sqlSession.close();
 		return deleteCnt;
 	}
 
 	@Override
 	public int updateMember(MemberVO memberVO) {
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
 		int updateCnt = sqlSession.update("member.updateMember",memberVO);
 		if(updateCnt > 0) {
-			sqlSession.commit();
+//			sqlSession.commit();
 		} else {
-			sqlSession.rollback();
+//			sqlSession.rollback();
 		}
-		sqlSession.close();
+//		sqlSession.close();
 		return updateCnt;
 	}
 	

@@ -111,27 +111,36 @@ public class MemberController {
 	public String memberRegist(@Valid MemberVO memberVO, BindingResult br, @RequestPart("file") MultipartFile file) {
 		
 		
-//		new MemberVoValidator().validate(memberVO, br);
-		// 검증을 통과하지 못했으므로 사용자 등록 화면으로 이동
-		
 		if (br.hasErrors()) {
 			return "member/memberRegist";
 		}
-		String filename = UUID.randomUUID().toString();
-		String extension = FileUploadUtil.getExtension(file.getOriginalFilename());
-		String filepath = "D:\\profile\\" + filename + "." + extension;
-		File uploadFile = new File(filepath);
+		
+		String filename = "";
+		String extension = "";
+		String filepath = "";
+		
 		logger.debug("사용자 정보 : {}", memberVO);
 		
 		if (file.getSize() > 0) {
 			try {
+				
+				filename = UUID.randomUUID().toString();
+				extension = FileUploadUtil.getExtension(file.getOriginalFilename());
+				filepath = "D:\\profile\\" + filename + "." + extension;
+				File uploadFile = new File(filepath);
 				file.transferTo(uploadFile);
+				
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
+			
 			logger.debug("파일이름 : {}, 확장자 : {}", filename, extension);
+			
 			memberVO.setFilename(filepath);
 			memberVO.setRealfilename(file.getOriginalFilename());
+		} else {
+			memberVO.setFilename(filepath);
+			memberVO.setRealfilename(filename);
 		}
 		
 		int insertCnt = memberService.insertMember(memberVO);
@@ -271,7 +280,7 @@ public class MemberController {
 	
 	@RequestMapping("/memberAjaxPage")
 	public String memberAjaxPage() {
-		return "member/memberAjax";
+		return "tiles/member/memberAjax";
 		
 	}
 
