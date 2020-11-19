@@ -9,11 +9,13 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ddit.member.dao.MemberDaoI;
 import kr.or.ddit.member.model.MemberVO;
 import kr.or.ddit.member.model.PageVO;
 
+@Transactional
 @Service("memberService")
 public class MemberService implements MemberServiceI {
 	

@@ -20,7 +20,6 @@
 			classpath:kr/or/ddit/config/spring/datasource-context.xml
 		</param-value>
 	</context-param>
-	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

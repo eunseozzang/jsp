@@ -283,5 +283,6 @@ public class MemberController {
 		return "tiles/member/memberAjax";
 		
 	}
+	
 
 }

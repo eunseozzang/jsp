@@ -81,7 +81,7 @@
 						<label for="userid" class="col-sm-2 control-label">사용자 아이디</label>
 						<div class="col-sm-10">
 						<input type="text" class="form-control" id="userid" name="userid"
-								placeholder="사용자 아이디" value="${memberVO.userid }" readonly>
+								placeholder="사용자 아이디" value="${memberVO.userid }">
 						</div>
 					</div>
 
